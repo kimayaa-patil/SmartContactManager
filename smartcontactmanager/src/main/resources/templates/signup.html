@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::Layout(~{::section})">	
+	<head>
+		<meta charset="UTF-8" />
+		<title>signup</title>
+	</head>
+	<body>
+	<section>
+	<!--- registration form -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="my-card mt-4" >
+					<!--- alert -->
+							<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
+								 <p class="text-center" th:text="${session.message.content}"></p>
+								 <!-- for removing the content beacuse message hs to show only one time -->
+								 <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+							</div>
+							
+							<!-- icon registration -->
+							<div class="container text-center mb-4">
+							<img class="" style="width: 60px;" src="" th:src="@{/img/signup.png}" alt="" />
+							 <h1 class="text-center mt-2 ">Create New Account</h1>
+							</div>
+						
+						<form  action="" th:action="@{/do_register}" method="post" th:object="${user}">
+							<!--name field -->
+							<div class="mb-3">
+							      <input type="text" name="name" class="form-control is-invalid " th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" id="name_ field" th:value="${user.name}" aria-describedby="namehelp" placeholder=" Name" required>
+								 	<div class="invalid-feedback" th:each="e: ${#fields.errors('name')}" th:text="${e}">
+								 	please enter valid name
+								 	</div>	
+							 </div>
+							 <!--email field -->
+							 <div class="mb-3">
+							    <input type="email" name="email" class="form-control" id="email _ field" aria-describedby="emailHelp" th:value="${user.email}" placeholder="Email" required>
+							 </div>
+							 <!--password field -->
+							 <div class="mb-3">
+							    <input type="password" name="password" class="form-control" id="password field" aria-describedby="passwordHelp" placeholder="Password" required>
+							 </div>
+							 <!--textarea field -->
+							 <div class="mb-3">
+								<textarea placeholder="Description" name="about" rows="5" th:text="${user.about}" class="form-control"></textarea>
+							 </div>
+							 <!-- agreement -->
+							 <div class="form-group form-check">
+							 	<input type="checkbox" name="agreement" class="for-check-input" id="agreement"/>
+							 	<label for="agreement" >Accept terms and conditions</label>
+							 </div>
+							 <!--  submit buttom--> <!--  reset buttom-->
+							 <div class="container text-center pt-2 ">
+							 	<button class="btn btn-success btn-block text-white" type="submit">Submit</button>
+							 	<button class="btn btn-danger text-white" type="reset" >Reset</button>
+							 </div>
+							 <!-- alredy account -->
+							 <div class="form-group form-check text-center">
+							 	<label for="agreement" >Already a member? <a th:href="@{/login}">Log in</a></label>
+							 </div>
+							 
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+		
+	</body>
+</html>
